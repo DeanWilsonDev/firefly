@@ -4,21 +4,20 @@
 
 #include <chrono>
 #include <filesystem>
-#include <firefly/common/clock-sync.h>
-#include <firefly/common/time.h>
-#include <firefly/logger.h>
+#include <firefly/clock-sync.hpp>
+#include <firefly/time.hpp>
+#include <firefly/logger.hpp>
 #include <unordered_map>
 
 namespace Firefly {
-namespace Logging {
 
-Logger::Logger(std::string name, bool debugEnabled)
+Logger::Logger(const std::string name, bool debugEnabled)
 {
   this->name = std::move(name);
   this->debugEnabled = debugEnabled;
 }
 
-Logger::Logger(std::string name, std::string fileName, bool debugEnabled)
+Logger::Logger(const std::string name, const std::string& fileName, bool debugEnabled)
 {
   this->name = std::move(name);
   this->debugEnabled = debugEnabled;
@@ -243,5 +242,5 @@ void Logger::writeLineToJsonFileHandler(LogEntry entry)
                 << std::to_string(entry.intervalCount) << "," << std::to_string(entry.totalCount)
                 << std::endl;
 }
-}  // namespace Logging
+
 }  // namespace Firefly

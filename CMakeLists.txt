@@ -12,7 +12,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # -------------------------
 # Library target
 # -------------------------
-add_library(firefly STATIC src/log.cpp src/logger.cpp src/log-factory.cpp)
+add_library(firefly STATIC src/logger.cpp src/log-registry.cpp)
 
 target_compile_features(firefly PUBLIC cxx_std_20)
 
@@ -20,7 +20,7 @@ target_include_directories(
   firefly PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                  $<INSTALL_INTERFACE:include>)
 
-target_precompile_headers(firefly PRIVATE include/pch/log-pch.h)
+target_precompile_headers(firefly PRIVATE include/pch.hpp)
 
 # -------------------------
 # Shared build define

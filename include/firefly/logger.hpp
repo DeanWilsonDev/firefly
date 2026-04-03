@@ -1,6 +1,7 @@
 #pragma once
 
-#include <firefly/common/clock-sync.h>
+#include <firefly/core.hpp>
+#include <firefly/clock-sync.hpp>
 #include <format>
 #include <fstream>
 #include <functional>
@@ -10,7 +11,6 @@
 #include <utility>
 
 namespace Firefly {
-namespace Logging {
 
 const int LOG_LEVEL_TRACE = 0;
 const int LOG_LEVEL_DEBUG = 1;
@@ -50,8 +50,8 @@ struct LogEntry {
 
 class Logger {
  public:
-  Logger(std::string name, bool debugEnabled = false);
-  Logger(std::string name, std::string fileName, bool debugEnabled = false);
+  Logger(const std::string name, bool debugEnabled = false);
+  Logger(const std::string name, const std::string& fileName, bool debugEnabled = false);
   ~Logger();
 
   Logger& operator=(const Logger& other)
@@ -145,5 +145,4 @@ class Logger {
 
   void log(LogLevel level, std::string formattedMessage);
 };
-}  // namespace Logging
 }  // namespace Firefly

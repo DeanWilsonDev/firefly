@@ -1,5 +1,6 @@
 #pragma once
 
+#include <firefly/core.hpp>
 #include <chrono>
 #include <ctime>
 #include <format>

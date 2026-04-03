@@ -1,7 +1,7 @@
 #pragma once
 
 #include <chrono>
-#include <firefly/common/time.h>
+#include <firefly/time.hpp>
 #include <iomanip>
 #include <sstream>
 
