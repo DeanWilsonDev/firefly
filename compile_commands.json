@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/firefly/build",
+  "command": "/usr/bin/c++  -I/run/media/deanwilson/FEARLESS_SSD/development/firefly/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -x c++-header -include /run/media/deanwilson/FEARLESS_SSD/development/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/cmake_pch.hxx.gch -c /run/media/deanwilson/FEARLESS_SSD/development/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx.cxx",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx.cxx",
+  "output": "CMakeFiles/firefly.dir/cmake_pch.hxx.gch"
+},
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/firefly/build",
+  "command": "/usr/bin/c++  -I/run/media/deanwilson/FEARLESS_SSD/development/firefly/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -include /run/media/deanwilson/FEARLESS_SSD/development/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/log.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/firefly/src/log.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/firefly/src/log.cpp",
+  "output": "CMakeFiles/firefly.dir/src/log.cpp.o"
+},
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/firefly/build",
+  "command": "/usr/bin/c++  -I/run/media/deanwilson/FEARLESS_SSD/development/firefly/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -include /run/media/deanwilson/FEARLESS_SSD/development/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/logger.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/firefly/src/logger.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/firefly/src/logger.cpp",
+  "output": "CMakeFiles/firefly.dir/src/logger.cpp.o"
+},
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/firefly/build",
+  "command": "/usr/bin/c++  -I/run/media/deanwilson/FEARLESS_SSD/development/firefly/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/test_firefly.dir/test/test_main.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/firefly/test/test_main.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/firefly/test/test_main.cpp",
+  "output": "CMakeFiles/test_firefly.dir/test/test_main.cpp.o"
+}
+]
