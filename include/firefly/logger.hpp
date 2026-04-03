@@ -71,43 +71,43 @@ class Logger {
   }
 
   template <typename... Args>
-  void trace(const std::format_string<Args...> message, Args&&... args)
+  void Trace(const std::format_string<Args...> message, Args&&... args)
   {
-    logFormattedString(LogLevel::Trace, message, std::forward<Args>(args)...);
+    LogFormattedString(LogLevel::Trace, message, std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  void debug(const std::format_string<Args...> message, Args&&... args)
+  void Debug(const std::format_string<Args...> message, Args&&... args)
   {
-    logFormattedString(LogLevel::Debug, message, std::forward<Args>(args)...);
+    LogFormattedString(LogLevel::Debug, message, std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  void info(const std::format_string<Args...> message, Args&&... args)
+  void Info(const std::format_string<Args...> message, Args&&... args)
   {
-    logFormattedString(LogLevel::Info, message, std::forward<Args>(args)...);
+    LogFormattedString(LogLevel::Info, message, std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  void warning(const std::format_string<Args...> message, Args&&... args)
+  void Warning(const std::format_string<Args...> message, Args&&... args)
   {
-    logFormattedString(LogLevel::Warning, message, std::forward<Args>(args)...);
+    LogFormattedString(LogLevel::Warning, message, std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  void error(const std::format_string<Args...> message, Args&&... args)
+  void Error(const std::format_string<Args...> message, Args&&... args)
   {
-    logFormattedString(LogLevel::Error, message, std::forward<Args>(args)...);
+    LogFormattedString(LogLevel::Error, message, std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  void fatal(const std::format_string<Args...> message, Args&&... args)
+  void Fatal(const std::format_string<Args...> message, Args&&... args)
   {
-    logFormattedString(LogLevel::Fatal, message, std::forward<Args>(args)...);
+    LogFormattedString(LogLevel::Fatal, message, std::forward<Args>(args)...);
   }
 
-  bool enableDebugging();
-  bool disableDebugging();
+  bool EnableDebugging();
+  bool DisableDebugging();
 
  private:
   std::string name;
@@ -117,32 +117,32 @@ class Logger {
   std::string fileName;
   std::unordered_map<std::string, LogEntry> logCache;
 
-  [[nodiscard]] bool shouldLogMessage(LogLevel level) const;
-  [[nodiscard]] bool getDebugEnabled() const;
-  void createAndOpenLogFile();
-  void closeLogFile();
-  void writeToFile(LogLevel level, std::string message);
-  void writeLineToFile(LogEntry entry);
-  void writeLineToCsvFileHandler(LogEntry entry);
-  void writeLineToJsonFileHandler(LogEntry entry);
-  void writeLineToPlainTextFileHandler(LogEntry entry);
-  void setColor(LogLevel level);
-  void resetColor();
-  std::string getLevelString(LogLevel level);
-  std::string getTimestamp();
+  [[nodiscard]] bool ShouldLogMessage(LogLevel level) const;
+  [[nodiscard]] bool GetDebugEnabled() const;
+  void CreateAndOpenLogFile();
+  void CloseLogFile();
+  void WriteToFile(LogLevel level, std::string message);
+  void WriteLineToFile(LogEntry entry);
+  void WriteLineToCsvFileHandler(LogEntry entry);
+  void WriteLineToJsonFileHandler(LogEntry entry);
+  void WriteLineToPlainTextFileHandler(LogEntry entry);
+  void SetColor(LogLevel level);
+  void ResetColor();
+  std::string GetLevelString(LogLevel level);
+  std::string GetTimestamp();
 
   std::unordered_map<std::string, std::function<void(LogEntry entry)>> handlers = {
-      {".csv", [this](LogEntry entry) { this->writeLineToCsvFileHandler(entry); }},
-      {".json", [this](LogEntry entry) { this->writeLineToJsonFileHandler(entry); }}
+      {".csv", [this](LogEntry entry) { this->WriteLineToCsvFileHandler(entry); }},
+      {".json", [this](LogEntry entry) { this->WriteLineToJsonFileHandler(entry); }}
   };
 
   template <typename... Args>
-  void logFormattedString(LogLevel level, const std::format_string<Args...> format, Args&&... args)
+  void LogFormattedString(LogLevel level, const std::format_string<Args...> format, Args&&... args)
   {
     std::string formattedString = std::format(format, std::forward<Args>(args)...);
-    this->log(level, formattedString);
+    this->Log(level, formattedString);
   };
 
-  void log(LogLevel level, std::string formattedMessage);
+  void Log(LogLevel level, std::string formattedMessage);
 };
 }  // namespace Firefly

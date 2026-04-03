@@ -22,15 +22,15 @@ Logger::Logger(const std::string name, const std::string& fileName, bool debugEn
   this->name = std::move(name);
   this->debugEnabled = debugEnabled;
   this->fileName = fileName;
-  this->createAndOpenLogFile();
+  this->CreateAndOpenLogFile();
 }
 
 Logger::~Logger()
 {
-  this->closeLogFile();
+  this->CloseLogFile();
 }
 
-void Logger::setColor(LogLevel level)
+void Logger::SetColor(LogLevel level)
 {
   switch (level) {
     case LogLevel::Trace:
@@ -60,12 +60,12 @@ void Logger::setColor(LogLevel level)
   }
 }
 
-void Logger::resetColor()
+void Logger::ResetColor()
 {
   std::cout << "\033[0m";
 }
 
-std::string Logger::getLevelString(LogLevel level)
+std::string Logger::GetLevelString(LogLevel level)
 {
   switch (level) {
     // TODO: Add Tracing?
@@ -88,7 +88,7 @@ std::string Logger::getLevelString(LogLevel level)
   }
 }
 
-std::string Logger::getTimestamp()
+std::string Logger::GetTimestamp()
 {
   std::time_t now = std::time(nullptr);
   std::tm timeinfo = localtime_safe(now);
@@ -99,23 +99,23 @@ std::string Logger::getTimestamp()
   return std::string(timestamp);
 }
 
-void Logger::log(LogLevel level, std::string formattedMessage)
+void Logger::Log(LogLevel level, std::string formattedMessage)
 {
-  if (Logger::shouldLogMessage(level)) {
+  if (Logger::ShouldLogMessage(level)) {
     if (this->logFile.is_open()) {
-      this->writeToFile(level, formattedMessage);
+      this->WriteToFile(level, formattedMessage);
     }
 
-    std::string timestamp = this->getTimestamp();
+    std::string timestamp = this->GetTimestamp();
     std::string loggerName = "[" + this->name + "] ";
-    std::string levelString = "[" + this->getLevelString(level) + "]: ";
-    this->setColor(level);
+    std::string levelString = "[" + this->GetLevelString(level) + "]: ";
+    this->SetColor(level);
     std::cout << timestamp << loggerName << levelString << formattedMessage << std::endl;
-    this->resetColor();
+    this->ResetColor();
   }
 }
 
-bool Logger::shouldLogMessage(LogLevel level) const
+bool Logger::ShouldLogMessage(LogLevel level) const
 {
   if (this->debugEnabled) {
     return true;
@@ -123,22 +123,22 @@ bool Logger::shouldLogMessage(LogLevel level) const
   return level >= LogLevel::Info;
 }
 
-bool Logger::enableDebugging()
+bool Logger::EnableDebugging()
 {
   return debugEnabled = true;
 }
 
-bool Logger::disableDebugging()
+bool Logger::DisableDebugging()
 {
   return debugEnabled = false;
 }
 
-bool Logger::getDebugEnabled() const
+bool Logger::GetDebugEnabled() const
 {
   return debugEnabled;
 }
 
-void Logger::createAndOpenLogFile()
+void Logger::CreateAndOpenLogFile()
 {
   try {
     std::filesystem::path logDir = "log";
@@ -160,7 +160,7 @@ void Logger::createAndOpenLogFile()
   }
 }
 
-void Logger::closeLogFile()
+void Logger::CloseLogFile()
 {
   if (this->logFile.is_open()) {
     this->logFile.close();
@@ -169,7 +169,7 @@ void Logger::closeLogFile()
 }
 
 // 1UP: A LogFileWriter Class would allow for some good cleanup in this file
-void Logger::writeToFile(LogLevel level, std::string message)
+void Logger::WriteToFile(LogLevel level, std::string message)
 {
   auto now = ClockSync();
   auto& entry = this->logCache[message];
@@ -181,7 +181,7 @@ void Logger::writeToFile(LogLevel level, std::string message)
           .count() >= 1) {
     entry.message = message;
     entry.logLevel = level;
-    this->writeLineToFile(entry);
+    this->WriteLineToFile(entry);
     entry.lastLogged = now;
     entry.intervalCount = 0;
   }
@@ -190,11 +190,11 @@ void Logger::writeToFile(LogLevel level, std::string message)
     entry.logLevel = level;
     entry.lastLogged = now;
     entry.intervalCount = 1;
-    this->writeLineToFile(entry);
+    this->WriteLineToFile(entry);
   }
 }
 
-void Logger::writeLineToFile(LogEntry entry)
+void Logger::WriteLineToFile(LogEntry entry)
 {
   // 1UP: Map to LogFormat for easy reference of file formats in the future
   // std::unordered_map<std::string, LogFormat> formatMap = {
@@ -210,35 +210,35 @@ void Logger::writeLineToFile(LogEntry entry)
     it->second(entry);
   }
   else {
-    this->writeLineToPlainTextFileHandler(entry);
+    this->WriteLineToPlainTextFileHandler(entry);
   }
 }
 
-void Logger::writeLineToCsvFileHandler(LogEntry entry)
+void Logger::WriteLineToCsvFileHandler(LogEntry entry)
 {
   std::string timestamp = ClockSync::systemTimeToString(entry.lastLogged.systemTime);
 
-  this->logFile << timestamp << "," << this->getLevelString(entry.logLevel) << "," << entry.message
+  this->logFile << timestamp << "," << this->GetLevelString(entry.logLevel) << "," << entry.message
                 << "," << std::to_string(entry.intervalCount) << ","
                 << std::to_string(entry.totalCount) << std::endl;
 }
 
-void Logger::writeLineToPlainTextFileHandler(LogEntry entry)
+void Logger::WriteLineToPlainTextFileHandler(LogEntry entry)
 {
   std::string timestamp = "[" + ClockSync::systemTimeToString(entry.lastLogged.systemTime) + "]";
 
   std::string loggerName = "[" + this->name + "] ";
-  std::string levelString = "[" + this->getLevelString(entry.logLevel) + "]: ";
+  std::string levelString = "[" + this->GetLevelString(entry.logLevel) + "]: ";
 
   this->logFile << timestamp << levelString << entry.message << std::endl;
 }
 
-void Logger::writeLineToJsonFileHandler(LogEntry entry)
+void Logger::WriteLineToJsonFileHandler(LogEntry entry)
 {
   std::string timestamp = ClockSync::systemTimeToString(entry.lastLogged.systemTime);
 
   // TODO: Convert this to a json format
-  this->logFile << timestamp << "," << this->getLevelString(entry.logLevel) << entry.message << ","
+  this->logFile << timestamp << "," << this->GetLevelString(entry.logLevel) << entry.message << ","
                 << std::to_string(entry.intervalCount) << "," << std::to_string(entry.totalCount)
                 << std::endl;
 }
