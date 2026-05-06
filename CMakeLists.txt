@@ -23,6 +23,36 @@ target_include_directories(
 target_precompile_headers(firefly PRIVATE include/pch.hpp)
 
 # -------------------------
+# Output dirs (optional)
+# -------------------------
+set_target_properties(
+  firefly
+  PROPERTIES ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+             LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+             RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+
+foreach(OUTPUTCONFIG Debug Release RelWithDebInfo MinSizeRel)
+  string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG_UPPER)
+  set_target_properties(
+    firefly
+    PROPERTIES ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER}
+               "${CMAKE_BINARY_DIR}/lib/${OUTPUTCONFIG}"
+               LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER}
+               "${CMAKE_BINARY_DIR}/lib/${OUTPUTCONFIG}"
+               RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER}
+               "${CMAKE_BINARY_DIR}/bin/${OUTPUTCONFIG}")
+endforeach()
+
+# -------------------------
+# Warnings
+# -------------------------
+if(MSVC)
+  target_compile_options(firefly PRIVATE /W4)
+else()
+  target_compile_options(firefly PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+
+# -------------------------
 # Shared build define
 # -------------------------
 if(BUILD_SHARED_LIBS)
