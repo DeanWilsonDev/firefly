@@ -23,6 +23,14 @@ target_include_directories(
 target_precompile_headers(firefly PRIVATE include/pch.hpp)
 
 # -------------------------
+# Install Dependencies
+# -------------------------
+
+add_subdirectory(external/amanuensis)
+target_link_libraries(${PROJECT_NAME} PRIVATE amanuensis)
+
+
+# -------------------------
 # Output dirs (optional)
 # -------------------------
 set_target_properties(

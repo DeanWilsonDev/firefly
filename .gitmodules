@@ -1,0 +1,3 @@
+[submodule "external/amanuensis"]
+	path = external/amanuensis
+	url = https://github.com/DeanWilsonDev/amanuensis.git

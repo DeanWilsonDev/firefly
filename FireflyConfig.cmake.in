@@ -1,0 +1,7 @@
+# FireflyConfig.cmake.in
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+include("${CMAKE_CURRENT_LIST_DIR}/FireflyTargets.cmake")
+
+check_required_components(firefly)
