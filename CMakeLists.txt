@@ -87,3 +87,22 @@ install(
   FILE fireflyTargets.cmake
   NAMESPACE Firefly::
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/firefly)
+
+# -------------------------
+# Package config (enables find_package)
+# -------------------------
+include(CMakePackageConfigHelpers)
+
+configure_package_config_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/fireflyConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/fireflyConfig.cmake"
+  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/firefly)
+
+write_basic_package_version_file(
+  "${CMAKE_CURRENT_BINARY_DIR}/fireflyConfigVersion.cmake"
+  VERSION ${PROJECT_VERSION}
+  COMPATIBILITY SameMajorVersion)
+
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/fireflyConfig.cmake"
+              "${CMAKE_CURRENT_BINARY_DIR}/fireflyConfigVersion.cmake"
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/firefly)
