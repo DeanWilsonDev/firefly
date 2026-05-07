@@ -27,7 +27,7 @@ struct ClockSync {
     this->systemTime = systemTime;
   }
 
-  static std::string systemTimeToString(std::chrono::system_clock::time_point& systemTimePoint)
+  static std::string SystemTimeToString(std::chrono::system_clock::time_point& systemTimePoint)
   {
     std::time_t t = std::chrono::system_clock::to_time_t(systemTimePoint);
     std::tm tm_struct = localtime_safe(t);

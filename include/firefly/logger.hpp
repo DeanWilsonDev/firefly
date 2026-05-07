@@ -2,10 +2,9 @@
 
 #include <firefly/core.hpp>
 #include <firefly/clock-sync.hpp>
-#include <format>
 #include <fstream>
+#include <format>
 #include <functional>
-#include <iostream>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -33,11 +32,14 @@ enum LogLevel : int {
 const int LOG_FORMAT_PLAIN_TEXT = 0;
 const int LOG_FORMAT_CSV = 1;
 const int LOG_FORMAT_JSON = 2;
+const int LOG_FORMAT_NDJSON = 3;
 
+// 1UP: These should be promoted to classes with their own writing/formating functions
 enum LogFormat : int {
   PLAIN_TEXT = LOG_FORMAT_PLAIN_TEXT,
   CSV = LOG_FORMAT_CSV,
-  JSON = LOG_FORMAT_JSON
+  JSON = LOG_FORMAT_JSON,
+  NDJSON = LOG_FORMAT_JSON,
 };
 
 struct LogEntry {
@@ -125,6 +127,7 @@ class Logger {
   void WriteLineToFile(LogEntry entry);
   void WriteLineToCsvFileHandler(LogEntry entry);
   void WriteLineToJsonFileHandler(LogEntry entry);
+  void WriteLineToNdjsonFileHandler(LogEntry entry);
   void WriteLineToPlainTextFileHandler(LogEntry entry);
   void SetColor(LogLevel level);
   void ResetColor();
@@ -133,7 +136,8 @@ class Logger {
 
   std::unordered_map<std::string, std::function<void(LogEntry entry)>> handlers = {
       {".csv", [this](LogEntry entry) { this->WriteLineToCsvFileHandler(entry); }},
-      {".json", [this](LogEntry entry) { this->WriteLineToJsonFileHandler(entry); }}
+      {".json", [this](LogEntry entry) { this->WriteLineToJsonFileHandler(entry); }},
+      {".ndjson", [this](LogEntry entry) { this->WriteLineToNdjsonFileHandler(entry); }}
   };
 
   template <typename... Args>

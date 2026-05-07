@@ -1,4 +1,4 @@
-# FireflyConfig.cmake.in
+# fireflyConfig.cmake.in
 @PACKAGE_INIT@
 
 include(CMakeFindDependencyMacro)
