@@ -1,3 +1,6 @@
 [submodule "external/amanuensis"]
 	path = external/amanuensis
 	url = https://github.com/DeanWilsonDev/amanuensis.git
+[submodule "external/cimmerian"]
+	path = external/cimmerian
+	url = https://github.com/DeanWilsonDev/cimmerian.git

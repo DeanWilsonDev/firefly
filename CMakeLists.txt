@@ -29,7 +29,6 @@ target_precompile_headers(firefly PRIVATE include/pch.hpp)
 add_subdirectory(external/amanuensis)
 target_link_libraries(${PROJECT_NAME} PRIVATE amanuensis)
 
-
 # -------------------------
 # Output dirs (optional)
 # -------------------------
@@ -96,8 +95,9 @@ endif()
 # -------------------------
 option(FIREFLY_BUILD_TESTS "Build firefly Tests" ON)
 if(FIREFLY_BUILD_TESTS)
+  add_subdirectory(external/cimmerian)
   add_executable(test_firefly test/test_main.cpp)
-  target_link_libraries(test_firefly PRIVATE firefly)
+  target_link_libraries(test_firefly PRIVATE firefly cimmerian)
   target_compile_features(test_firefly PRIVATE cxx_std_20)
   if(MSVC)
     target_compile_options(test_firefly PRIVATE /W4 /EHsc)
