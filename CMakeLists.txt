@@ -9,6 +9,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+  set(IS_ROOT_PROJECT ON)
+else()
+  set(IS_ROOT_PROJECT OFF)
+endif()
+
 # -------------------------
 # Library target
 # -------------------------
@@ -93,17 +99,10 @@ endif()
 # -------------------------
 # Test executable
 # -------------------------
-option(FIREFLY_BUILD_TESTS "Build firefly Tests" ON)
-if(FIREFLY_BUILD_TESTS)
+
+if(IS_ROOT_PROJECT)
   add_subdirectory(external/cimmerian)
-  add_executable(test_firefly test/test_main.cpp)
-  target_link_libraries(test_firefly PRIVATE firefly cimmerian)
-  target_compile_features(test_firefly PRIVATE cxx_std_20)
-  if(MSVC)
-    target_compile_options(test_firefly PRIVATE /W4 /EHsc)
-  else()
-    target_compile_options(test_firefly PRIVATE -Wall -Wextra -Wpedantic)
-  endif()
+  add_subdirectory(test)
 endif()
 
 # ------------------------

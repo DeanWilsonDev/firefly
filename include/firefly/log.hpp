@@ -8,12 +8,28 @@
 namespace Firefly {
 
 // Log Macros
-#define LOG_TRACE(...) Firefly::LogRegistry::GetLogger(FIREFLY_DEFAULT_LOGGER)->Trace(__VA_ARGS__)
-#define LOG_DEBUG(...) Firefly::LogRegistry::GetLogger(FIREFLY_DEFAULT_LOGGER)->Debug(__VA_ARGS__)
-#define LOG_INFO(...) Firefly::LogRegistry::GetLogger(FIREFLY_DEFAULT_LOGGER)->Info(__VA_ARGS__)
-#define LOG_WARNING(...) \
-  Firefly::LogRegistry::GetLogger(FIREFLY_DEFAULT_LOGGER)->Warning(__VA_ARGS__)
-#define LOG_ERROR(...) Firefly::LogRegistry::GetLogger(FIREFLY_DEFAULT_LOGGER)->Error(__VA_ARGS__)
-#define LOG_FATAL(...) Firefly::LogRegistry::GetLogger(FIREFLY_DEFAULT_LOGGER)->Fatal(__VA_ARGS__)
+
+#define LOG_TRACE(...)                                    \
+  Firefly::LogRegistry::GetLogger(FIREFLY_DEFAULT_LOGGER) \
+      ->Log<Firefly::LogLevel::Trace>(__VA_ARGS__)
+
+#define LOG_DEBUG(...)                                    \
+  Firefly::LogRegistry::GetLogger(FIREFLY_DEFAULT_LOGGER) \
+      ->Log<Firefly::LogLevel::Debug>(__VA_ARGS__)
+
+#define LOG_INFO(...) \
+  Firefly::LogRegistry::GetLogger(FIREFLY_DEFAULT_LOGGER)->Log<Firefly::LogLevel::Info>(__VA_ARGS__)
+
+#define LOG_WARNING(...)                                  \
+  Firefly::LogRegistry::GetLogger(FIREFLY_DEFAULT_LOGGER) \
+      ->Log<Firefly::LogLevel::Warning>(__VA_ARGS__)
+
+#define LOG_ERROR(...)                                    \
+  Firefly::LogRegistry::GetLogger(FIREFLY_DEFAULT_LOGGER) \
+      ->Log<Firefly::LogLevel::Error>(__VA_ARGS__)
+
+#define LOG_FATAL(...)                                    \
+  Firefly::LogRegistry::GetLogger(FIREFLY_DEFAULT_LOGGER) \
+      ->Log<Firefly::LogLevel::Fatal>(__VA_ARGS__)
 
 }  // namespace Firefly

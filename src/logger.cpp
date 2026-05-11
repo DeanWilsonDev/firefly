@@ -13,6 +13,8 @@
 #include <amanuensis.hpp>
 #include "amanuensis/io/writer-options.hpp"
 #include "amanuensis/io/writer.hpp"
+#include "firefly/log-color.hpp"
+#include <firefly/log-levels/i-log-level.hpp>
 
 namespace Firefly {
 
@@ -35,62 +37,9 @@ Logger::~Logger()
   this->CloseLogFile();
 }
 
-void Logger::SetColor(LogLevel level)
-{
-  switch (level) {
-    case LogLevel::Trace:
-      std::cout << "\033[0;32m";  // Green
-      break;
-    case LogLevel::Debug:
-      std::cout << "\033[0;34m";  // Blue
-      break;
-    case LogLevel::Info:
-      std::cout << "\033[0;36m";  // Grey [Normal]
-      break;
-    case LogLevel::Warning:
-      std::cout << "\033[0;33m";  // Yellow
-      break;
-    case LogLevel::Error:
-      std::cout << "\033[0;31m";  // Red
-      break;
-    case LogLevel::Fatal:
-      std::cout << "\033[0;35m";  // Magenta
-      break;
-    case LogLevel::Off:
-      std::cout << "\033[0m";  // Reset
-      break;
-    default:
-      std::cout << "\033[0m";
-      break;
-  }
-}
-
 void Logger::ResetColor()
 {
-  std::cout << "\033[0m";
-}
-
-std::string Logger::GetLevelString(LogLevel level)
-{
-  switch (level) {
-    // TODO: Add Tracing?
-    case LogLevel::Trace:
-      return "TRACE";
-    case LogLevel::Debug:
-      return "DEBUG";
-    case LogLevel::Info:
-      return "INFO";
-    case LogLevel::Warning:
-      return "WARNING";
-    case LogLevel::Error:
-      return "ERROR";
-    case LogLevel::Fatal:
-      return "FATAL";
-    case LogLevel::Off:
-      return "OFF";
-    default:
-      return "UNKNOWN";
-  }
+  std::cout << LogColor::Reset;
 }
 
 std::string Logger::GetTimestamp()
@@ -104,28 +53,27 @@ std::string Logger::GetTimestamp()
   return std::string(timestamp);
 }
 
-void Logger::Log(LogLevel level, std::string formattedMessage)
+void Logger::LogImpl(const LogLevel::ILogLevel& level, std::string formattedMessage)
 {
   if (Logger::ShouldLogMessage(level)) {
     if (this->logFile.is_open()) {
       this->WriteToFile(level, formattedMessage);
     }
-
     std::string timestamp = this->GetTimestamp();
     std::string loggerName = "[" + this->name + "] ";
-    std::string levelString = "[" + this->GetLevelString(level) + "]: ";
-    this->SetColor(level);
-    std::cout << timestamp << loggerName << levelString << formattedMessage << std::endl;
+    std::string levelString = "[" + level.GetName() + "]: ";
+    std::cout << level.GetColor() << timestamp << loggerName << levelString << formattedMessage
+              << std::endl;
     this->ResetColor();
   }
 }
 
-bool Logger::ShouldLogMessage(LogLevel level) const
+bool Logger::ShouldLogMessage(const LogLevel::ILogLevel& level) const
 {
   if (this->debugEnabled) {
     return true;
   }
-  return level >= LogLevel::Info;
+  return level.GetPriority() >= LogLevel::Info{}.GetPriority();
 }
 
 bool Logger::EnableDebugging()
@@ -174,7 +122,7 @@ void Logger::CloseLogFile()
 }
 
 // 1UP: A LogFileWriter Class would allow for some good cleanup in this file
-void Logger::WriteToFile(LogLevel level, std::string message)
+void Logger::WriteToFile(const LogLevel::ILogLevel& level, std::string message)
 {
   auto now = ClockSync();
   auto& entry = this->logCache[message];
@@ -185,17 +133,17 @@ void Logger::WriteToFile(LogLevel level, std::string message)
   if (std::chrono::duration_cast<std::chrono::seconds>(now.steadyTime - entry.lastLogged.steadyTime)
           .count() >= 1) {
     entry.message = message;
-    entry.logLevel = level;
+    entry.logLevel = level.GetName();
     this->WriteLineToFile(entry);
     entry.lastLogged = now;
     entry.intervalCount = 0;
   }
   else {
-    entry.message = message;
-    entry.logLevel = level;
-    entry.lastLogged = now;
-    entry.intervalCount = 1;
-    this->WriteLineToFile(entry);
+    // entry.message = message;
+    // entry.logLevel = level.GetName();
+    // entry.lastLogged = now;
+    entry.intervalCount += 1;
+    // this->WriteLineToFile(entry);
   }
 }
 
@@ -223,25 +171,24 @@ void Logger::WriteLineToCsvFileHandler(LogEntry entry)
 {
   std::string timestamp = ClockSync::SystemTimeToString(entry.lastLogged.systemTime);
 
-  this->logFile << timestamp << "," << this->GetLevelString(entry.logLevel) << "," << entry.message
-                << "," << std::to_string(entry.intervalCount) << ","
-                << std::to_string(entry.totalCount) << std::endl;
+  this->logFile << timestamp << "," << entry.logLevel.GetName() << "," << entry.message << ","
+                << std::to_string(entry.intervalCount) << "," << std::to_string(entry.totalCount)
+                << std::endl;
 }
 
 void Logger::WriteLineToPlainTextFileHandler(LogEntry entry)
 {
   std::string timestamp = "[" + ClockSync::SystemTimeToString(entry.lastLogged.systemTime) + "]";
-
   std::string loggerName = "[" + this->name + "] ";
-  std::string levelString = "[" + this->GetLevelString(entry.logLevel) + "]: ";
+  std::string levelString = "[" + entry.logLevel.GetName() + "]: ";
 
   this->logFile << timestamp << levelString << entry.message << std::endl;
 }
 
 struct JsonPayload {
-  std::string timestamp;
-  std::string logLevel;
-  std::string message;
+  std::string_view timestamp;
+  std::string_view logLevel;
+  std::string_view message;
   int intervalCount;
   int totalCount;
 };
@@ -256,11 +203,10 @@ void Logger::WriteLineToJsonFileHandler(LogEntry entry)
 
   JsonPayload payload = JsonPayload{
       .timestamp = timestamp,
-      .logLevel = this->GetLevelString(entry.logLevel),
+      .logLevel = entry.logLevel.GetName(),
       .message = entry.message,
       .intervalCount = entry.intervalCount,
       .totalCount = entry.totalCount
-
   };
 
   Amanuensis::Value jsonValue = Amanuensis::ToJson(payload);
@@ -276,7 +222,7 @@ void Logger::WriteLineToNdjsonFileHandler(LogEntry entry)
 
   JsonPayload payload = JsonPayload{
       .timestamp = timestamp,
-      .logLevel = this->GetLevelString(entry.logLevel),
+      .logLevel = entry.logLevel.GetName(),
       .message = entry.message,
       .intervalCount = entry.intervalCount,
       .totalCount = entry.totalCount
