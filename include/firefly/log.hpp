@@ -2,7 +2,7 @@
 #include <firefly/core.hpp>
 #include <firefly/logger.hpp>
 #include <firefly/log-registry.hpp>
-#include <firefly/log-levels/log-levels.hpp>
+#include <firefly/log-levels.hpp>
 
 #define FIREFLY_DEFAULT_LOGGER "Client"
 

@@ -18,11 +18,10 @@ endif()
 # -------------------------
 # Library target
 # -------------------------
-add_library(firefly STATIC 
-  src/logger.cpp 
-  src/log-registry.cpp
-  src/sinks/ndjson-sink.cpp
-)
+add_library(
+  firefly STATIC
+  src/logger.cpp src/log-registry.cpp src/sinks/plain-text-sink.cpp
+  src/sinks/json-sink.cpp src/sinks/ndjson-sink.cpp src/sinks/csv-sink.cpp)
 
 target_compile_features(firefly PUBLIC cxx_std_20)
 

@@ -10,10 +10,11 @@
 #include <firefly/time.hpp>
 #include <firefly/logger.hpp>
 #include <firefly/log-entry.hpp>
-#include <amanuensis.hpp>
-#include "amanuensis/io/writer-options.hpp"
-#include "amanuensis/io/writer.hpp"
+#include <firefly/sinks/i-sink.hpp>
 #include "firefly/log-color.hpp"
+#include "firefly/sinks/csv-sink.hpp"
+#include "firefly/sinks/json-sink.hpp"
+#include "firefly/sinks/plain-text-sink.hpp"
 #include <firefly/log-levels/i-log-level.hpp>
 #include <firefly/log-levels/log-level-info.hpp>
 
@@ -30,12 +31,21 @@ Logger::Logger(const std::string name, const std::string& fileName, bool debugEn
   this->name = std::move(name);
   this->debugEnabled = debugEnabled;
   this->fileName = fileName;
+  this->InitializeSinks();
   this->CreateAndOpenLogFile();
 }
 
 Logger::~Logger()
 {
   this->CloseLogFile();
+}
+
+void Logger::InitializeSinks()
+{
+  this->sinks.emplace(".txt", std::make_unique<Sinks::PlainTextSink>());
+  this->sinks.emplace(".csv", std::make_unique<Sinks::CsvSink>());
+  this->sinks.emplace(".json", std::make_unique<Sinks::JsonSink>());
+  this->sinks.emplace(".ndjson", std::make_unique<Sinks::NdjsonSink>());
 }
 
 void Logger::ResetColor()
@@ -131,115 +141,38 @@ void Logger::WriteToFile(const LogLevels::ILogLevel& level, std::string message)
   entry.intervalCount++;
   entry.totalCount++;
 
+  // SIDE QUEST: This needs testing, i don't think it is working correctly
   if (std::chrono::duration_cast<std::chrono::seconds>(now.steadyTime - entry.lastLogged.steadyTime)
           .count() >= 1) {
     entry.message = message;
+    entry.loggerName = this->name;
     entry.logLevelName = level.GetName();
     this->WriteLineToFile(entry);
     entry.lastLogged = now;
     entry.intervalCount = 0;
   }
   else {
-    // entry.message = message;
-    // entry.logLevel = level.GetName();
-    // entry.lastLogged = now;
+    entry.message = message;
+    entry.loggerName = this->name;
+    entry.logLevelName = level.GetName();
+    entry.lastLogged = now;
     entry.intervalCount += 1;
-    // this->WriteLineToFile(entry);
+    this->WriteLineToFile(entry);
   }
 }
 
 void Logger::WriteLineToFile(LogEntry entry)
 {
-  // 1UP: Map to LogFormat for easy reference of file formats in the future
-  // std::unordered_map<std::string, LogFormat> formatMap = {
-  //     {".csv", LogFormat::CSV}, {".json", LogFormat::JSON}
-  // };
-
   std::filesystem::path path(this->fileName);
   std::string extension = path.extension().string();
 
-  auto it = this->handlers.find(extension);
+  auto it = this->sinks.find(extension);
 
-  if (it != handlers.end()) {
-    it->second(entry);
+  if (it != this->sinks.end()) {
+    this->logFile << it->second->Format(entry);
   }
   else {
-    this->WriteLineToPlainTextFileHandler(entry);
+    this->logFile << this->defaultSink->Format(entry);
   }
 }
-
-void Logger::WriteLineToCsvFileHandler(LogEntry entry)
-{
-  std::string timestamp = ClockSync::SystemTimeToString(entry.lastLogged.systemTime);
-
-  this->logFile << timestamp << "," << entry.logLevelName << "," << entry.message << ","
-                << std::to_string(entry.intervalCount) << "," << std::to_string(entry.totalCount)
-                << std::endl;
-}
-
-void Logger::WriteLineToPlainTextFileHandler(LogEntry entry)
-{
-  std::string timestamp = "[" + ClockSync::SystemTimeToString(entry.lastLogged.systemTime) + "]";
-
-  std::string loggerName = std::format("[{}] ", this->name);
-  std::string levelString = std::format("[{}]: ", entry.logLevelName);
-
-  this->logFile << timestamp << levelString << entry.message << std::endl;
-}
-
-struct JsonPayload {
-  std::string timestamp;
-  std::string logLevel;
-  std::string message;
-  int intervalCount;
-  int totalCount;
-};
-
-AMANUENSIS_SERIALISABLE(JsonPayload, timestamp, logLevel, message, intervalCount, totalCount);
-
-// TODO: This function doesn't return proper JSON yet. It needs to be comma delimitted and wrapped
-// in an array
-void Logger::WriteLineToJsonFileHandler(LogEntry entry)
-{
-  std::string timestamp = ClockSync::SystemTimeToString(entry.lastLogged.systemTime);
-
-  JsonPayload payload = JsonPayload{
-      .timestamp = timestamp,
-      .logLevel = std::string(entry.logLevelName),
-      .message = entry.message,
-      .intervalCount = entry.intervalCount,
-      .totalCount = entry.totalCount
-  };
-
-  Amanuensis::Value jsonValue = Amanuensis::ToJson(payload);
-
-  std::string jsonText = Amanuensis::Writer::WriteToString(jsonValue);
-
-  this->logFile << jsonText;
-}
-
-void Logger::WriteLineToNdjsonFileHandler(LogEntry entry)
-{
-  std::string timestamp = ClockSync::SystemTimeToString(entry.lastLogged.systemTime);
-
-  JsonPayload payload = JsonPayload{
-      .timestamp = timestamp,
-      .logLevel = std::string(entry.logLevelName),
-      .message = entry.message,
-      .intervalCount = entry.intervalCount,
-      .totalCount = entry.totalCount
-
-  };
-
-  Amanuensis::WriterOptions ndjsonOptions;
-  ndjsonOptions.pretty = false;
-  ndjsonOptions.trailingNewline = true;
-
-  Amanuensis::Value jsonValue = Amanuensis::ToJson(payload);
-
-  std::string jsonText = Amanuensis::Writer::WriteToString(jsonValue, ndjsonOptions);
-
-  this->logFile << jsonText;
-}
-
 }  // namespace Firefly

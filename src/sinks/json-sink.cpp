@@ -1,12 +1,12 @@
 #include "json-payload.hpp"
-#include <firefly/sinks/ndjson-sink.hpp>
+#include <firefly/sinks/json-sink.hpp>
 #include <firefly/clock-sync.hpp>
 #include "firefly/log-entry.hpp"
 #include <amanuensis.hpp>
 
 namespace Firefly::Sinks {
 
-std::string NdjsonSink::Format(LogEntry entry) const
+std::string JsonSink::Format(LogEntry entry) const
 {
   std::string timestamp = ClockSync::SystemTimeToString(entry.lastLogged.systemTime);
 
@@ -19,12 +19,13 @@ std::string NdjsonSink::Format(LogEntry entry) const
       .totalCount = entry.totalCount
   };
 
-  Amanuensis::WriterOptions ndjsonOptions;
-  ndjsonOptions.pretty = false;
-  ndjsonOptions.trailingNewline = true;
+  Amanuensis::WriterOptions jsonOptions;
+  jsonOptions.pretty = true;
+  jsonOptions.trailingNewline = false;
 
   Amanuensis::Value jsonValue = Amanuensis::ToJson(payload);
+  std::string jsonString = Amanuensis::Writer::WriteToString(jsonValue, jsonOptions);
 
-  return Amanuensis::Writer::WriteToString(jsonValue, ndjsonOptions);
+  return std::format("{},\n", jsonString);
 }
 }  // namespace Firefly::Sinks

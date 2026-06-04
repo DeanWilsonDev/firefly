@@ -9,7 +9,7 @@ namespace LogLevels {
 
 class Debug : public ILogLevel {
  public:
-  static constexpr std::string_view name{"Debug"};
+  static constexpr std::string_view name{"DEBUG"};
   static constexpr std::string_view color{LogColor::Blue};
   static constexpr int priority{1};
 

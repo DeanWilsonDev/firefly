@@ -1,3 +1,4 @@
+#pragma once
 #include <firefly/log-levels/i-log-level.hpp>
 #include <firefly/log-levels/log-level-trace.hpp>
 #include <firefly/log-levels/log-level-debug.hpp>

@@ -5,6 +5,8 @@
 #pragma once
 
 #include "firefly/sinks/i-sink.hpp"
+#include <string>
+
 namespace Firefly {
 
 struct LogEntry;
@@ -15,7 +17,7 @@ class NdjsonSink : public ISink {
  public:
   ~NdjsonSink() = default;
 
-  void WriteToFile(LogEntry entry) const override;
+  std::string Format(LogEntry entry) const override;
 };
 }  // namespace Sinks
 }  // namespace Firefly

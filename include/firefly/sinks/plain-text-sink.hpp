@@ -3,17 +3,21 @@
 ///
 
 #pragma once
+
+#include "firefly/sinks/i-sink.hpp"
 #include <string>
 
 namespace Firefly {
+
 struct LogEntry;
 
 namespace Sinks {
-class ISink {
- public:
-  ~ISink() = default;
 
-  virtual std::string Format(LogEntry entry) const = 0;
+class PlainTextSink : public ISink {
+ public:
+  ~PlainTextSink() = default;
+
+  std::string Format(LogEntry entry) const override;
 };
 }  // namespace Sinks
 }  // namespace Firefly

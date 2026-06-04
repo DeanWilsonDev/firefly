@@ -8,6 +8,7 @@
 
 namespace Firefly {
 struct LogEntry {
+  std::string loggerName;
   ClockSync lastLogged;
   std::string logLevelName;
   std::string logLevelColor;
