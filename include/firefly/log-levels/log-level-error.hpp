@@ -5,21 +5,20 @@
 #include <string_view>
 
 namespace Firefly {
-namespace LogLevel {
+namespace LogLevels {
 
 class Error : public ILogLevel {
  public:
-  Error();
+  static constexpr std::string_view name{"ERROR"};
+  static constexpr std::string_view color{LogColor::Red};
+  static constexpr int priority{4};
+
+  Error() = default;
   ~Error() = default;
   std::string_view GetColor() const override { return this->color; }
   std::string_view GetName() const override { return this->name; }
   int GetPriority() const override { return this->priority; }
-
- private:
-  std::string_view name{"ERROR"};
-  std::string_view color{LogColor::Red};
-  int priority{4};
 };
 
-}  // namespace LogLevel
+}  // namespace LogLevels
 }  // namespace Firefly

@@ -9,12 +9,13 @@
 #include <firefly/clock-sync.hpp>
 #include <firefly/time.hpp>
 #include <firefly/logger.hpp>
-#include <unordered_map>
+#include <firefly/log-entry.hpp>
 #include <amanuensis.hpp>
 #include "amanuensis/io/writer-options.hpp"
 #include "amanuensis/io/writer.hpp"
 #include "firefly/log-color.hpp"
 #include <firefly/log-levels/i-log-level.hpp>
+#include <firefly/log-levels/log-level-info.hpp>
 
 namespace Firefly {
 
@@ -53,27 +54,27 @@ std::string Logger::GetTimestamp()
   return std::string(timestamp);
 }
 
-void Logger::LogImpl(const LogLevel::ILogLevel& level, std::string formattedMessage)
+void Logger::LogImpl(const LogLevels::ILogLevel& level, std::string formattedMessage)
 {
   if (Logger::ShouldLogMessage(level)) {
     if (this->logFile.is_open()) {
       this->WriteToFile(level, formattedMessage);
     }
     std::string timestamp = this->GetTimestamp();
-    std::string loggerName = "[" + this->name + "] ";
-    std::string levelString = "[" + level.GetName() + "]: ";
+    std::string loggerName = std::format("[{}] ", this->name);
+    std::string levelString = std::format("[{}]: ", level.GetName());
     std::cout << level.GetColor() << timestamp << loggerName << levelString << formattedMessage
               << std::endl;
     this->ResetColor();
   }
 }
 
-bool Logger::ShouldLogMessage(const LogLevel::ILogLevel& level) const
+bool Logger::ShouldLogMessage(const LogLevels::ILogLevel& level) const
 {
   if (this->debugEnabled) {
     return true;
   }
-  return level.GetPriority() >= LogLevel::Info{}.GetPriority();
+  return level.GetPriority() >= LogLevels::Info::priority;
 }
 
 bool Logger::EnableDebugging()
@@ -122,7 +123,7 @@ void Logger::CloseLogFile()
 }
 
 // 1UP: A LogFileWriter Class would allow for some good cleanup in this file
-void Logger::WriteToFile(const LogLevel::ILogLevel& level, std::string message)
+void Logger::WriteToFile(const LogLevels::ILogLevel& level, std::string message)
 {
   auto now = ClockSync();
   auto& entry = this->logCache[message];
@@ -133,7 +134,7 @@ void Logger::WriteToFile(const LogLevel::ILogLevel& level, std::string message)
   if (std::chrono::duration_cast<std::chrono::seconds>(now.steadyTime - entry.lastLogged.steadyTime)
           .count() >= 1) {
     entry.message = message;
-    entry.logLevel = level.GetName();
+    entry.logLevelName = level.GetName();
     this->WriteLineToFile(entry);
     entry.lastLogged = now;
     entry.intervalCount = 0;
@@ -171,7 +172,7 @@ void Logger::WriteLineToCsvFileHandler(LogEntry entry)
 {
   std::string timestamp = ClockSync::SystemTimeToString(entry.lastLogged.systemTime);
 
-  this->logFile << timestamp << "," << entry.logLevel.GetName() << "," << entry.message << ","
+  this->logFile << timestamp << "," << entry.logLevelName << "," << entry.message << ","
                 << std::to_string(entry.intervalCount) << "," << std::to_string(entry.totalCount)
                 << std::endl;
 }
@@ -179,16 +180,17 @@ void Logger::WriteLineToCsvFileHandler(LogEntry entry)
 void Logger::WriteLineToPlainTextFileHandler(LogEntry entry)
 {
   std::string timestamp = "[" + ClockSync::SystemTimeToString(entry.lastLogged.systemTime) + "]";
-  std::string loggerName = "[" + this->name + "] ";
-  std::string levelString = "[" + entry.logLevel.GetName() + "]: ";
+
+  std::string loggerName = std::format("[{}] ", this->name);
+  std::string levelString = std::format("[{}]: ", entry.logLevelName);
 
   this->logFile << timestamp << levelString << entry.message << std::endl;
 }
 
 struct JsonPayload {
-  std::string_view timestamp;
-  std::string_view logLevel;
-  std::string_view message;
+  std::string timestamp;
+  std::string logLevel;
+  std::string message;
   int intervalCount;
   int totalCount;
 };
@@ -203,7 +205,7 @@ void Logger::WriteLineToJsonFileHandler(LogEntry entry)
 
   JsonPayload payload = JsonPayload{
       .timestamp = timestamp,
-      .logLevel = entry.logLevel.GetName(),
+      .logLevel = std::string(entry.logLevelName),
       .message = entry.message,
       .intervalCount = entry.intervalCount,
       .totalCount = entry.totalCount
@@ -222,7 +224,7 @@ void Logger::WriteLineToNdjsonFileHandler(LogEntry entry)
 
   JsonPayload payload = JsonPayload{
       .timestamp = timestamp,
-      .logLevel = entry.logLevel.GetName(),
+      .logLevel = std::string(entry.logLevelName),
       .message = entry.message,
       .intervalCount = entry.intervalCount,
       .totalCount = entry.totalCount

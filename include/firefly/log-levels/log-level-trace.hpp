@@ -5,21 +5,19 @@
 #include <string_view>
 
 namespace Firefly {
-namespace LogLevel {
+namespace LogLevels {
 
 class Trace : public ILogLevel {
  public:
-  Trace();
+  static constexpr std::string_view name{"TRACE"};
+  static constexpr std::string_view color{LogColor::Green};
+  static constexpr int priority{0};
+
+  Trace() = default;
   ~Trace() = default;
   std::string_view GetColor() const override { return this->color; }
   std::string_view GetName() const override { return this->name; }
   int GetPriority() const override { return this->priority; }
-
- private:
-  std::string_view name{"TRACE"};
-  std::string_view color{LogColor::Green};
-  int priority{0};
 };
-
-}  // namespace LogLevel
+}  // namespace LogLevels
 }  // namespace Firefly

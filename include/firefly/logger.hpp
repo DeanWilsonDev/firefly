@@ -2,6 +2,7 @@
 
 #include <firefly/core.hpp>
 #include <firefly/clock-sync.hpp>
+#include <firefly/log-entry.hpp>
 #include <fstream>
 #include <format>
 #include <functional>
@@ -23,14 +24,6 @@ enum LogFormat : int {
   CSV = LOG_FORMAT_CSV,
   JSON = LOG_FORMAT_JSON,
   NDJSON = LOG_FORMAT_JSON,
-};
-
-struct LogEntry {
-  ClockSync lastLogged;
-  const LogLevel::ILogLevel& logLevel;
-  std::string message;
-  int intervalCount;
-  int totalCount;
 };
 
 class Logger {
@@ -59,7 +52,7 @@ class Logger {
   void Log(const std::format_string<Args...> message, Args&&... args)
   {
     static_assert(
-        std::is_base_of_v<LogLevel::ILogLevel, TLogLevel>, "TLogLevel must implement ILogLevel"
+        std::is_base_of_v<LogLevels::ILogLevel, TLogLevel>, "TLogLevel must implement ILogLevel"
     );
     std::string formattedString = std::format(message, std::forward<Args>(args)...);
     this->LogImpl(TLogLevel{}, formattedString);
@@ -76,18 +69,16 @@ class Logger {
   std::string fileName;
   std::unordered_map<std::string, LogEntry> logCache;
 
-  [[nodiscard]] bool ShouldLogMessage(const LogLevel::ILogLevel& level) const;
+  [[nodiscard]] bool ShouldLogMessage(const LogLevels::ILogLevel& level) const;
   [[nodiscard]] bool GetDebugEnabled() const;
   void CreateAndOpenLogFile();
   void CloseLogFile();
-  void WriteToFile(const LogLevel::ILogLevel& level, std::string message);
+  void WriteToFile(const LogLevels::ILogLevel& level, std::string message);
   void WriteLineToFile(LogEntry entry);
   void WriteLineToCsvFileHandler(LogEntry entry);
   void WriteLineToJsonFileHandler(LogEntry entry);
   void WriteLineToNdjsonFileHandler(LogEntry entry);
   void WriteLineToPlainTextFileHandler(LogEntry entry);
-  // void SetColor(LogLevel level);
-  // std::string GetLevelString(LogLevel level);
   void ResetColor();
   std::string GetTimestamp();
 
@@ -97,6 +88,6 @@ class Logger {
       {".ndjson", [this](LogEntry entry) { this->WriteLineToNdjsonFileHandler(entry); }}
   };
 
-  void LogImpl(const LogLevel::ILogLevel& level, std::string formattedMessage);
+  void LogImpl(const LogLevels::ILogLevel& level, std::string formattedMessage);
 };
 }  // namespace Firefly
