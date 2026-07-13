@@ -1,6 +1,8 @@
 #pragma once
 #include <amanuensis.hpp>
 
+namespace Firefly {
+
 struct JsonPayload {
   std::string timestamp;
   std::string loggerName;
@@ -13,3 +15,5 @@ struct JsonPayload {
 AMANUENSIS_SERIALISABLE(
     JsonPayload, timestamp, loggerName, logLevel, message, intervalCount, totalCount
 );
+
+}  // namespace Firefly

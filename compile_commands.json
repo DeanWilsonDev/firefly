@@ -1,104 +1,122 @@
 [
 {
-  "directory": "/home/deanwilson/development/projects/firefly/build",
-  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/firefly/include -I/home/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -x c++-header -include /home/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/cmake_pch.hxx.gch -c /home/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx.cxx",
-  "file": "/home/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx.cxx",
-  "output": "CMakeFiles/firefly.dir/cmake_pch.hxx.gch"
+  "directory": "/Users/deanwilson/development/projects/firefly/build",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/include -I/Users/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -Winvalid-pch -Xclang -emit-pch -Xclang -include -Xclang /Users/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx -x c++-header -o CMakeFiles/firefly.dir/cmake_pch.hxx.pch -c /Users/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx.cxx",
+  "file": "/Users/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx.cxx",
+  "output": "CMakeFiles/firefly.dir/cmake_pch.hxx.pch"
 },
 {
-  "directory": "/home/deanwilson/development/projects/firefly/build",
-  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/firefly/include -I/home/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -include /home/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/logger.cpp.o -c /home/deanwilson/development/projects/firefly/src/logger.cpp",
-  "file": "/home/deanwilson/development/projects/firefly/src/logger.cpp",
+  "directory": "/Users/deanwilson/development/projects/firefly/build",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/include -I/Users/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -Winvalid-pch -Xclang -include-pch -Xclang /Users/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx.pch -Xclang -include -Xclang /Users/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/logger.cpp.o -c /Users/deanwilson/development/projects/firefly/src/logger.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/src/logger.cpp",
   "output": "CMakeFiles/firefly.dir/src/logger.cpp.o"
 },
 {
-  "directory": "/home/deanwilson/development/projects/firefly/build",
-  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/firefly/include -I/home/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -include /home/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/log-registry.cpp.o -c /home/deanwilson/development/projects/firefly/src/log-registry.cpp",
-  "file": "/home/deanwilson/development/projects/firefly/src/log-registry.cpp",
+  "directory": "/Users/deanwilson/development/projects/firefly/build",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/include -I/Users/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -Winvalid-pch -Xclang -include-pch -Xclang /Users/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx.pch -Xclang -include -Xclang /Users/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/log-registry.cpp.o -c /Users/deanwilson/development/projects/firefly/src/log-registry.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/src/log-registry.cpp",
   "output": "CMakeFiles/firefly.dir/src/log-registry.cpp.o"
 },
 {
-  "directory": "/home/deanwilson/development/projects/firefly/build",
-  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/firefly/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/test_firefly.dir/test/test_main.cpp.o -c /home/deanwilson/development/projects/firefly/test/test_main.cpp",
-  "file": "/home/deanwilson/development/projects/firefly/test/test_main.cpp",
-  "output": "CMakeFiles/test_firefly.dir/test/test_main.cpp.o"
+  "directory": "/Users/deanwilson/development/projects/firefly/build",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/include -I/Users/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -Winvalid-pch -Xclang -include-pch -Xclang /Users/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx.pch -Xclang -include -Xclang /Users/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/sinks/plain-text-sink.cpp.o -c /Users/deanwilson/development/projects/firefly/src/sinks/plain-text-sink.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/src/sinks/plain-text-sink.cpp",
+  "output": "CMakeFiles/firefly.dir/src/sinks/plain-text-sink.cpp.o"
 },
 {
-  "directory": "/home/deanwilson/development/projects/firefly/build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/value.cpp.o -c /home/deanwilson/development/projects/firefly/external/amanuensis/src/value.cpp",
-  "file": "/home/deanwilson/development/projects/firefly/external/amanuensis/src/value.cpp",
+  "directory": "/Users/deanwilson/development/projects/firefly/build",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/include -I/Users/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -Winvalid-pch -Xclang -include-pch -Xclang /Users/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx.pch -Xclang -include -Xclang /Users/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/sinks/json-sink.cpp.o -c /Users/deanwilson/development/projects/firefly/src/sinks/json-sink.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/src/sinks/json-sink.cpp",
+  "output": "CMakeFiles/firefly.dir/src/sinks/json-sink.cpp.o"
+},
+{
+  "directory": "/Users/deanwilson/development/projects/firefly/build",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/include -I/Users/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -Winvalid-pch -Xclang -include-pch -Xclang /Users/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx.pch -Xclang -include -Xclang /Users/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/sinks/ndjson-sink.cpp.o -c /Users/deanwilson/development/projects/firefly/src/sinks/ndjson-sink.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/src/sinks/ndjson-sink.cpp",
+  "output": "CMakeFiles/firefly.dir/src/sinks/ndjson-sink.cpp.o"
+},
+{
+  "directory": "/Users/deanwilson/development/projects/firefly/build",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/include -I/Users/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -Winvalid-pch -Xclang -include-pch -Xclang /Users/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx.pch -Xclang -include -Xclang /Users/deanwilson/development/projects/firefly/build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/sinks/csv-sink.cpp.o -c /Users/deanwilson/development/projects/firefly/src/sinks/csv-sink.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/src/sinks/csv-sink.cpp",
+  "output": "CMakeFiles/firefly.dir/src/sinks/csv-sink.cpp.o"
+},
+{
+  "directory": "/Users/deanwilson/development/projects/firefly/build/external/amanuensis",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/value.cpp.o -c /Users/deanwilson/development/projects/firefly/external/amanuensis/src/value.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/external/amanuensis/src/value.cpp",
   "output": "external/amanuensis/CMakeFiles/amanuensis.dir/src/value.cpp.o"
 },
 {
-  "directory": "/home/deanwilson/development/projects/firefly/build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/io/reader.cpp.o -c /home/deanwilson/development/projects/firefly/external/amanuensis/src/io/reader.cpp",
-  "file": "/home/deanwilson/development/projects/firefly/external/amanuensis/src/io/reader.cpp",
+  "directory": "/Users/deanwilson/development/projects/firefly/build/external/amanuensis",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/io/reader.cpp.o -c /Users/deanwilson/development/projects/firefly/external/amanuensis/src/io/reader.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/external/amanuensis/src/io/reader.cpp",
   "output": "external/amanuensis/CMakeFiles/amanuensis.dir/src/io/reader.cpp.o"
 },
 {
-  "directory": "/home/deanwilson/development/projects/firefly/build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/io/writer.cpp.o -c /home/deanwilson/development/projects/firefly/external/amanuensis/src/io/writer.cpp",
-  "file": "/home/deanwilson/development/projects/firefly/external/amanuensis/src/io/writer.cpp",
+  "directory": "/Users/deanwilson/development/projects/firefly/build/external/amanuensis",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/io/writer.cpp.o -c /Users/deanwilson/development/projects/firefly/external/amanuensis/src/io/writer.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/external/amanuensis/src/io/writer.cpp",
   "output": "external/amanuensis/CMakeFiles/amanuensis.dir/src/io/writer.cpp.o"
 },
 {
-  "directory": "/home/deanwilson/development/projects/firefly/build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/io/writer-context.cpp.o -c /home/deanwilson/development/projects/firefly/external/amanuensis/src/io/writer-context.cpp",
-  "file": "/home/deanwilson/development/projects/firefly/external/amanuensis/src/io/writer-context.cpp",
+  "directory": "/Users/deanwilson/development/projects/firefly/build/external/amanuensis",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/io/writer-context.cpp.o -c /Users/deanwilson/development/projects/firefly/external/amanuensis/src/io/writer-context.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/external/amanuensis/src/io/writer-context.cpp",
   "output": "external/amanuensis/CMakeFiles/amanuensis.dir/src/io/writer-context.cpp.o"
 },
 {
-  "directory": "/home/deanwilson/development/projects/firefly/build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/io/parser.cpp.o -c /home/deanwilson/development/projects/firefly/external/amanuensis/src/io/parser.cpp",
-  "file": "/home/deanwilson/development/projects/firefly/external/amanuensis/src/io/parser.cpp",
+  "directory": "/Users/deanwilson/development/projects/firefly/build/external/amanuensis",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/io/parser.cpp.o -c /Users/deanwilson/development/projects/firefly/external/amanuensis/src/io/parser.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/external/amanuensis/src/io/parser.cpp",
   "output": "external/amanuensis/CMakeFiles/amanuensis.dir/src/io/parser.cpp.o"
 },
 {
-  "directory": "/home/deanwilson/development/projects/firefly/build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/serialisation/serialisation.cpp.o -c /home/deanwilson/development/projects/firefly/external/amanuensis/src/serialisation/serialisation.cpp",
-  "file": "/home/deanwilson/development/projects/firefly/external/amanuensis/src/serialisation/serialisation.cpp",
+  "directory": "/Users/deanwilson/development/projects/firefly/build/external/amanuensis",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/serialisation/serialisation.cpp.o -c /Users/deanwilson/development/projects/firefly/external/amanuensis/src/serialisation/serialisation.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/external/amanuensis/src/serialisation/serialisation.cpp",
   "output": "external/amanuensis/CMakeFiles/amanuensis.dir/src/serialisation/serialisation.cpp.o"
 },
 {
-  "directory": "/home/deanwilson/development/projects/firefly/build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/ordered-map.cpp.o -c /home/deanwilson/development/projects/firefly/external/amanuensis/src/ordered-map.cpp",
-  "file": "/home/deanwilson/development/projects/firefly/external/amanuensis/src/ordered-map.cpp",
+  "directory": "/Users/deanwilson/development/projects/firefly/build/external/amanuensis",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/ordered-map.cpp.o -c /Users/deanwilson/development/projects/firefly/external/amanuensis/src/ordered-map.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/external/amanuensis/src/ordered-map.cpp",
   "output": "external/amanuensis/CMakeFiles/amanuensis.dir/src/ordered-map.cpp.o"
 },
 {
-  "directory": "/home/deanwilson/development/projects/firefly/build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/firefly/external/amanuensis/include -isystem /home/deanwilson/.local/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/test_amanuensis.dir/test/test-main.cpp.o -c /home/deanwilson/development/projects/firefly/external/amanuensis/test/test-main.cpp",
-  "file": "/home/deanwilson/development/projects/firefly/external/amanuensis/test/test-main.cpp",
-  "output": "external/amanuensis/CMakeFiles/test_amanuensis.dir/test/test-main.cpp.o"
+  "directory": "/Users/deanwilson/development/projects/firefly/build/external/cimmerian",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/external/cimmerian/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/cimmerian.dir/src/test-group.cpp.o -c /Users/deanwilson/development/projects/firefly/external/cimmerian/src/test-group.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/external/cimmerian/src/test-group.cpp",
+  "output": "external/cimmerian/CMakeFiles/cimmerian.dir/src/test-group.cpp.o"
 },
 {
-  "directory": "/home/deanwilson/development/projects/firefly/build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/firefly/external/amanuensis/include -isystem /home/deanwilson/.local/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/test_amanuensis.dir/test/reader.test.cpp.o -c /home/deanwilson/development/projects/firefly/external/amanuensis/test/reader.test.cpp",
-  "file": "/home/deanwilson/development/projects/firefly/external/amanuensis/test/reader.test.cpp",
-  "output": "external/amanuensis/CMakeFiles/test_amanuensis.dir/test/reader.test.cpp.o"
+  "directory": "/Users/deanwilson/development/projects/firefly/build/external/cimmerian",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/external/cimmerian/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/cimmerian.dir/src/test-registry.cpp.o -c /Users/deanwilson/development/projects/firefly/external/cimmerian/src/test-registry.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/external/cimmerian/src/test-registry.cpp",
+  "output": "external/cimmerian/CMakeFiles/cimmerian.dir/src/test-registry.cpp.o"
 },
 {
-  "directory": "/home/deanwilson/development/projects/firefly/build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/firefly/external/amanuensis/include -isystem /home/deanwilson/.local/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/test_amanuensis.dir/test/writer.test.cpp.o -c /home/deanwilson/development/projects/firefly/external/amanuensis/test/writer.test.cpp",
-  "file": "/home/deanwilson/development/projects/firefly/external/amanuensis/test/writer.test.cpp",
-  "output": "external/amanuensis/CMakeFiles/test_amanuensis.dir/test/writer.test.cpp.o"
+  "directory": "/Users/deanwilson/development/projects/firefly/build/external/cimmerian",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/external/cimmerian/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/cimmerian.dir/src/test-runner.cpp.o -c /Users/deanwilson/development/projects/firefly/external/cimmerian/src/test-runner.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/external/cimmerian/src/test-runner.cpp",
+  "output": "external/cimmerian/CMakeFiles/cimmerian.dir/src/test-runner.cpp.o"
 },
 {
-  "directory": "/home/deanwilson/development/projects/firefly/build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/firefly/external/amanuensis/include -isystem /home/deanwilson/.local/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/test_amanuensis.dir/test/round-trip.test.cpp.o -c /home/deanwilson/development/projects/firefly/external/amanuensis/test/round-trip.test.cpp",
-  "file": "/home/deanwilson/development/projects/firefly/external/amanuensis/test/round-trip.test.cpp",
-  "output": "external/amanuensis/CMakeFiles/test_amanuensis.dir/test/round-trip.test.cpp.o"
+  "directory": "/Users/deanwilson/development/projects/firefly/build/external/cimmerian",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/external/cimmerian/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_cimmerian.dir/test/test-main.cpp.o -c /Users/deanwilson/development/projects/firefly/external/cimmerian/test/test-main.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/external/cimmerian/test/test-main.cpp",
+  "output": "external/cimmerian/CMakeFiles/test_cimmerian.dir/test/test-main.cpp.o"
 },
 {
-  "directory": "/home/deanwilson/development/projects/firefly/build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/firefly/external/amanuensis/include -isystem /home/deanwilson/.local/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/test_amanuensis.dir/test/value.test.cpp.o -c /home/deanwilson/development/projects/firefly/external/amanuensis/test/value.test.cpp",
-  "file": "/home/deanwilson/development/projects/firefly/external/amanuensis/test/value.test.cpp",
-  "output": "external/amanuensis/CMakeFiles/test_amanuensis.dir/test/value.test.cpp.o"
+  "directory": "/Users/deanwilson/development/projects/firefly/build/external/cimmerian",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/external/cimmerian/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_cimmerian.dir/test/example.test.cpp.o -c /Users/deanwilson/development/projects/firefly/external/cimmerian/test/example.test.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/external/cimmerian/test/example.test.cpp",
+  "output": "external/cimmerian/CMakeFiles/test_cimmerian.dir/test/example.test.cpp.o"
 },
 {
-  "directory": "/home/deanwilson/development/projects/firefly/build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/firefly/external/amanuensis/include -isystem /home/deanwilson/.local/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/test_amanuensis.dir/test/serialisation.test.cpp.o -c /home/deanwilson/development/projects/firefly/external/amanuensis/test/serialisation.test.cpp",
-  "file": "/home/deanwilson/development/projects/firefly/external/amanuensis/test/serialisation.test.cpp",
-  "output": "external/amanuensis/CMakeFiles/test_amanuensis.dir/test/serialisation.test.cpp.o"
+  "directory": "/Users/deanwilson/development/projects/firefly/build/test",
+  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/firefly/include -I/Users/deanwilson/development/projects/firefly/external/cimmerian/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_firefly.dir/test_main.cpp.o -c /Users/deanwilson/development/projects/firefly/test/test_main.cpp",
+  "file": "/Users/deanwilson/development/projects/firefly/test/test_main.cpp",
+  "output": "test/CMakeFiles/test_firefly.dir/test_main.cpp.o"
 }
 ]
