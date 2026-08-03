@@ -11,7 +11,7 @@ struct LogEntry;
 namespace Sinks {
 class ISink {
  public:
-  ~ISink() = default;
+  virtual ~ISink() = default;
 
   virtual std::string Format(LogEntry entry) const = 0;
 };

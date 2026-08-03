@@ -138,9 +138,6 @@ void Logger::WriteToFile(const LogLevels::ILogLevel& level, std::string message)
   auto now = ClockSync();
   auto& entry = this->logCache[message];
 
-  entry.intervalCount++;
-  entry.totalCount++;
-
   // SIDE QUEST: This needs testing, i don't think it is working correctly
   if (std::chrono::duration_cast<std::chrono::seconds>(now.steadyTime - entry.lastLogged.steadyTime)
           .count() >= 1) {
@@ -150,13 +147,15 @@ void Logger::WriteToFile(const LogLevels::ILogLevel& level, std::string message)
     this->WriteLineToFile(entry);
     entry.lastLogged = now;
     entry.intervalCount = 0;
+    ++entry.totalCount;
   }
   else {
     entry.message = message;
     entry.loggerName = this->name;
     entry.logLevelName = level.GetName();
     entry.lastLogged = now;
-    entry.intervalCount += 1;
+    ++entry.intervalCount;
+    ++entry.totalCount;
     this->WriteLineToFile(entry);
   }
 }
