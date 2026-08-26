@@ -10,7 +10,7 @@ namespace LogLevels {
 class Error : public ILogLevel {
  public:
   static constexpr std::string_view name{"ERROR"};
-  static constexpr std::string_view color{LogColor::Red};
+  static constexpr std::string_view color{LogColorRed};
   static constexpr int priority{4};
 
   Error() = default;

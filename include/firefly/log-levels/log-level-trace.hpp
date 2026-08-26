@@ -10,7 +10,7 @@ namespace LogLevels {
 class Trace : public ILogLevel {
  public:
   static constexpr std::string_view name{"TRACE"};
-  static constexpr std::string_view color{LogColor::Green};
+  static constexpr std::string_view color{LogColorGreen};
   static constexpr int priority{0};
 
   Trace() = default;

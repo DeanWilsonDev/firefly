@@ -10,7 +10,7 @@ namespace LogLevels {
 class Fatal : public ILogLevel {
  public:
   static constexpr std::string_view name{"FATAL"};
-  static constexpr std::string_view color{LogColor::Magenta};
+  static constexpr std::string_view color{LogColorMagenta};
   static constexpr int priority{5};
 
   Fatal() = default;

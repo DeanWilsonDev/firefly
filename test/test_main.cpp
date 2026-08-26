@@ -1,5 +1,6 @@
 #include <firefly/log.hpp>
 #include <firefly/log-registry.hpp>
+#include "firefly/log-color.hpp"
 
 using namespace Firefly;
 
@@ -14,7 +15,13 @@ int main()
   LOG_ERROR("{} Testing Error Logging", 5);
   LOG_FATAL("{} Testing Fatal Logging", 6);
 
-  for(int i = 0; i < 10; ++i){
+  for (int i = 0; i < 10; ++i) {
     LOG_DEBUG("Testing Update Logging");
   }
+
+  PRINT("Hello", Color::Green);
+  PRINT(" World {}\n", Color::Blue, "!");
+
+  PRINT_LINE("FOO BAR", Color::Red);
+  PRINT("New Line!\n", Color::Magenta);
 }

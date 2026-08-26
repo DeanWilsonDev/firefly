@@ -8,6 +8,12 @@
 
 namespace Firefly {
 
+// Print Macros
+#define PRINT(...) Firefly::LogRegistry::GetLogger(FIREFLY_DEFAULT_LOGGER)->Print(__VA_ARGS__)
+
+#define PRINT_LINE(...) \
+  Firefly::LogRegistry::GetLogger(FIREFLY_DEFAULT_LOGGER)->PrintLine(__VA_ARGS__)
+
 // Log Macros
 
 #define LOG_TRACE(...)                                    \

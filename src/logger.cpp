@@ -50,7 +50,7 @@ void Logger::InitializeSinks()
 
 void Logger::ResetColor()
 {
-  std::cout << LogColor::Reset;
+  std::cout << LogColorReset;
 }
 
 std::string Logger::GetTimestamp()
@@ -77,6 +77,18 @@ void Logger::LogImpl(const LogLevels::ILogLevel& level, std::string formattedMes
               << std::endl;
     this->ResetColor();
   }
+}
+
+void Logger::PrintImpl(std::string formattedMessage, Color color)
+{
+  std::cout << MapToLogColor(color) << formattedMessage;
+  this->ResetColor();
+}
+
+void Logger::PrintLineImpl(std::string formattedMessage, Color color)
+{
+  std::cout << MapToLogColor(color) << formattedMessage << std::endl;
+  this->ResetColor();
 }
 
 bool Logger::ShouldLogMessage(const LogLevels::ILogLevel& level) const

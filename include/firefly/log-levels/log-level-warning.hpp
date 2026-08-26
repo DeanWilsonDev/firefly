@@ -10,7 +10,7 @@ namespace LogLevels {
 class Warning : public ILogLevel {
  public:
   static constexpr std::string_view name{"WARNING"};
-  static constexpr std::string_view color{LogColor::Yellow};
+  static constexpr std::string_view color{LogColorYellow};
   static constexpr int priority{2};
 
   Warning() = default;

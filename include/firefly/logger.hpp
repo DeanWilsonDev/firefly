@@ -10,6 +10,7 @@
 #include <string>
 #include <unordered_map>
 #include <utility>
+#include "firefly/log-color.hpp"
 #include "firefly/log-levels/i-log-level.hpp"
 #include "firefly/sinks/i-sink.hpp"
 #include "firefly/sinks/plain-text-sink.hpp"
@@ -48,6 +49,24 @@ class Logger {
     this->LogImpl(TLogLevel{}, formattedString);
   }
 
+  template <typename... Args>
+  void Print(
+      const std::format_string<Args...> message, const Color color = Color::Reset, Args&&... args
+  )
+  {
+    std::string formattedString = std::format(message, std::forward<Args>(args)...);
+    this->PrintImpl(formattedString, color);
+  }
+
+  template <typename... Args>
+  void PrintLine(
+      const std::format_string<Args...> message, const Color color = Color::Reset, Args&&... args
+  )
+  {
+    std::string formattedString = std::format(message, std::forward<Args>(args)...);
+    this->PrintLineImpl(formattedString, color);
+  }
+
   bool EnableDebugging();
   bool DisableDebugging();
 
@@ -73,5 +92,7 @@ class Logger {
   std::unordered_map<std::string, std::unique_ptr<Sinks::ISink>> sinks;
 
   void LogImpl(const LogLevels::ILogLevel& level, std::string formattedMessage);
+  void PrintImpl(const std::string message, const Color color);
+  void PrintLineImpl(const std::string message, const Color color);
 };
 }  // namespace Firefly
