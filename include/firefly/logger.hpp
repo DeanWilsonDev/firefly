@@ -50,18 +50,28 @@ class Logger {
   }
 
   template <typename... Args>
-  void Print(
-      const std::format_string<Args...> message, const Color color = Color::Reset, Args&&... args
-  )
+  void Print(const std::format_string<Args...> message, Args&&... args)
+  {
+    std::string formattedString = std::format(message, std::forward<Args>(args)...);
+    this->PrintImpl(formattedString, Color::Reset);
+  }
+
+  template <typename... Args>
+  void Print(const Color color, const std::format_string<Args...> message, Args&&... args)
   {
     std::string formattedString = std::format(message, std::forward<Args>(args)...);
     this->PrintImpl(formattedString, color);
   }
 
   template <typename... Args>
-  void PrintLine(
-      const std::format_string<Args...> message, const Color color = Color::Reset, Args&&... args
-  )
+  void PrintLine(const std::format_string<Args...> message, Args&&... args)
+  {
+    std::string formattedString = std::format(message, std::forward<Args>(args)...);
+    this->PrintLineImpl(formattedString, Color::Reset);
+  }
+
+  template <typename... Args>
+  void PrintLine(const Color color, const std::format_string<Args...> message, Args&&... args)
   {
     std::string formattedString = std::format(message, std::forward<Args>(args)...);
     this->PrintLineImpl(formattedString, color);

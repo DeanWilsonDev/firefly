@@ -19,9 +19,9 @@ int main()
     LOG_DEBUG("Testing Update Logging");
   }
 
-  PRINT("Hello", Color::Green);
-  PRINT(" World {}\n", Color::Blue, "!");
+  PRINT(Color::Green, "Hello");
+  PRINT(Color::Blue, " World {}\n", "!");
 
-  PRINT_LINE("FOO BAR", Color::Red);
-  PRINT("New Line!\n", Color::Magenta);
+  PRINT_LINE(Color::Red, "FOO BAR");
+  PRINT("New Line!\n");
 }
