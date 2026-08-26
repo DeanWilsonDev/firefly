@@ -16,6 +16,9 @@ class LogRegistry {
 
   FIREFLY_API static std::shared_ptr<Logger>& GetLogger(const std::string& loggerName);
 
+  FIREFLY_API static void LoggerEnableDebug(const std::string& loggerName);
+  FIREFLY_API static void LoggerDisableDebug(const std::string& loggerName);
+
  private:
   static std::unordered_map<std::string, std::shared_ptr<Logger>> registeredLoggers;
 };

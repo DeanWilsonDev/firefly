@@ -20,6 +20,16 @@ void LogRegistry::RegisterLogger(
       std::make_shared<Logger>(loggerName, outputFileName, enableDebugLogging);
 };
 
+void LogRegistry::LoggerEnableDebug(const std::string& loggerName)
+{
+  registeredLoggers[loggerName]->EnableDebugging();
+};
+
+void LogRegistry::LoggerDisableDebug(const std::string& loggerName)
+{
+  registeredLoggers[loggerName]->DisableDebugging();
+};
+
 std::shared_ptr<Logger>& LogRegistry::GetLogger(const std::string& loggerName)
 {
   return registeredLoggers.at(loggerName);

@@ -10,9 +10,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-  set(FIREFLY_IS_ROOT_PROJECT ON)
+  set(IS_ROOT_PROJECT ON)
 else()
-  set(FIREFLY_IS_ROOT_PROJECT OFF)
+  set(IS_ROOT_PROJECT OFF)
 endif()
 
 # -------------------------
@@ -103,7 +103,7 @@ endif()
 # Test executable
 # -------------------------
 
-if(FIREFLY_IS_ROOT_PROJECT)
+if(IS_ROOT_PROJECT)
   add_subdirectory(external/cimmerian)
   add_subdirectory(test)
 endif()
