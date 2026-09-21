@@ -23,7 +23,7 @@ std::string JsonSink::Format(LogEntry entry) const
   jsonOptions.pretty = true;
   jsonOptions.trailingNewline = false;
 
-  Amanuensis::Value jsonValue = Amanuensis::ToJson(payload);
+  Amanuensis::JsonValue jsonValue = Amanuensis::ToJson(payload);
   std::string jsonString = Amanuensis::Writer::WriteToString(jsonValue, jsonOptions);
 
   return std::format("{},\n", jsonString);

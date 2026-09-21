@@ -23,7 +23,7 @@ std::string NdjsonSink::Format(LogEntry entry) const
   ndjsonOptions.pretty = false;
   ndjsonOptions.trailingNewline = true;
 
-  Amanuensis::Value jsonValue = Amanuensis::ToJson(payload);
+  Amanuensis::JsonValue jsonValue = Amanuensis::ToJson(payload);
 
   return Amanuensis::Writer::WriteToString(jsonValue, ndjsonOptions);
 }
