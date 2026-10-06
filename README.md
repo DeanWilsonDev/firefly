@@ -1,6 +1,6 @@
 # Firefly — Logging Library
 
-A lightweight, header-friendly C++20 logging library designed for game development and tooling.
+A lightweight, header-friendly C++26 logging library designed for game development and tooling.
 Firefly supports console output with color-coded log levels, file output in multiple formats,
 and a global logger registry for multi-logger applications.
 
@@ -20,9 +20,10 @@ ______________________________________________________________________
 
 ## Requirements
 
-- C++20 or later
-- CMake 3.25 or later
-- A compiler with `std::format` support (GCC 13+, Clang 16+, MSVC 19.29+)
+- C++26
+- CMake 3.30 or later
+- GCC 14 or later, Clang 18 or later, or a recent AppleClang
+- On Windows, clang-cl from Clang 18 or later; MSVC's cl.exe isn't supported
 
 ______________________________________________________________________
 
