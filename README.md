@@ -22,8 +22,8 @@ ______________________________________________________________________
 
 - C++26
 - CMake 3.30 or later
-- GCC 14 or later, Clang 18 or later, or a recent AppleClang
-- On Windows, clang-cl from Clang 18 or later; MSVC's cl.exe isn't supported
+- GCC 14 or later, Clang 19 or later, or a recent AppleClang
+- On Windows, clang-cl from Clang 19 or later; MSVC's cl.exe isn't supported
 
 ______________________________________________________________________
 
