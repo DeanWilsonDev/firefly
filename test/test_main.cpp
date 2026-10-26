@@ -5,21 +5,25 @@
 #include <chrono>
 #include <filesystem>
 #include <string>
+#include <system_error>
 
 using namespace Firefly;
 
 namespace {
 std::filesystem::path CreateScratchLogDirectory()
 {
-  const auto uniqueSuffix = std::to_string(
-      std::chrono::steady_clock::now().time_since_epoch().count()
-  );
-  const auto scratchDirectory =
-      std::filesystem::temp_directory_path() / ("firefly-test-" + uniqueSuffix);
-  std::filesystem::create_directories(scratchDirectory);
-  return scratchDirectory;
+  const auto temporaryDirectory = std::filesystem::temp_directory_path();
+  auto uniqueSuffix = std::chrono::steady_clock::now().time_since_epoch().count();
+  while (true) {
+    const auto scratchDirectory =
+        temporaryDirectory / ("firefly-test-" + std::to_string(uniqueSuffix));
+    if (std::filesystem::create_directory(scratchDirectory)) {
+      return scratchDirectory;
+    }
+    ++uniqueSuffix;
+  }
 }
-}  // namespace
+}
 
 int main()
 {
@@ -49,8 +53,10 @@ int main()
   Firefly::LogRegistry::GetLogger(FIREFLY_DEFAULT_LOGGER).reset();
   std::filesystem::current_path(originalWorkingDirectory);
 
-  const bool logFileWasWritten =
-      std::filesystem::file_size(scratchLogDirectory / "log" / "log.json") > 0;
+  std::error_code logFileSizeError;
+  const auto logFileSize =
+      std::filesystem::file_size(scratchLogDirectory / "log" / "log.json", logFileSizeError);
+  const bool logFileWasWritten = !logFileSizeError && logFileSize > 0;
   std::filesystem::remove_all(scratchLogDirectory);
   return logFileWasWritten ? 0 : 1;
 }
