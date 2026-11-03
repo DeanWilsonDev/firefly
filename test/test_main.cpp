@@ -58,6 +58,8 @@ int main()
       "ExplicitSink", "explicit-sink.log", std::make_unique<Firefly::Sinks::NdjsonSink>()
   );
   Firefly::LogRegistry::GetLogger("ExplicitSink")->Log<Firefly::LogLevels::Info>("chosen sink");
+  Firefly::LogRegistry::GetLogger("ExplicitSink")->Log<Firefly::LogLevels::Debug>("left out");
+  Firefly::LogRegistry::GetLogger("ExplicitSink")->Log<Firefly::LogLevels::Warning>("kept warning");
 
   Firefly::LogRegistry::GetLogger(FIREFLY_DEFAULT_LOGGER).reset();
   Firefly::LogRegistry::GetLogger("ExplicitSink").reset();
@@ -73,7 +75,13 @@ int main()
   std::getline(explicitSinkFile, explicitSinkLine);
   const bool explicitSinkWroteNdjson =
       explicitSinkLine.starts_with("{") && explicitSinkLine.contains("\"message\":\"chosen sink\"");
+  std::string warningLine;
+  std::getline(explicitSinkFile, warningLine);
+  std::string lineAfterWarning;
+  const bool nothingAfterWarning = !std::getline(explicitSinkFile, lineAfterWarning);
+  const bool warningKeptWithoutDebug =
+      warningLine.contains("\"message\":\"kept warning\"") && nothingAfterWarning;
   explicitSinkFile.close();
   std::filesystem::remove_all(scratchLogDirectory);
-  return logFileWasWritten && explicitSinkWroteNdjson ? 0 : 1;
+  return logFileWasWritten && explicitSinkWroteNdjson && warningKeptWithoutDebug ? 0 : 1;
 }
