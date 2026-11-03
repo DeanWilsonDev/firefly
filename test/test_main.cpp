@@ -1,6 +1,10 @@
 #include <firefly/log.hpp>
 #include <firefly/log-registry.hpp>
 #include "firefly/log-color.hpp"
+#include "firefly/sinks/ndjson-sink.hpp"
+
+#include <fstream>
+#include <memory>
 
 #include <chrono>
 #include <filesystem>
@@ -50,13 +54,26 @@ int main()
   PRINT_LINE(Color::Red, "FOO BAR");
   PRINT("New Line!\n");
 
+  Firefly::LogRegistry::RegisterLogger(
+      "ExplicitSink", "explicit-sink.log", std::make_unique<Firefly::Sinks::NdjsonSink>()
+  );
+  Firefly::LogRegistry::GetLogger("ExplicitSink")->Log<Firefly::LogLevels::Info>("chosen sink");
+
   Firefly::LogRegistry::GetLogger(FIREFLY_DEFAULT_LOGGER).reset();
+  Firefly::LogRegistry::GetLogger("ExplicitSink").reset();
   std::filesystem::current_path(originalWorkingDirectory);
 
   std::error_code logFileSizeError;
   const auto logFileSize =
       std::filesystem::file_size(scratchLogDirectory / "log" / "log.json", logFileSizeError);
   const bool logFileWasWritten = !logFileSizeError && logFileSize > 0;
+
+  std::ifstream explicitSinkFile(scratchLogDirectory / "log" / "explicit-sink.log");
+  std::string explicitSinkLine;
+  std::getline(explicitSinkFile, explicitSinkLine);
+  const bool explicitSinkWroteNdjson =
+      explicitSinkLine.starts_with("{") && explicitSinkLine.contains("\"message\":\"chosen sink\"");
+  explicitSinkFile.close();
   std::filesystem::remove_all(scratchLogDirectory);
-  return logFileWasWritten ? 0 : 1;
+  return logFileWasWritten && explicitSinkWroteNdjson ? 0 : 1;
 }

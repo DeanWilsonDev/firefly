@@ -20,6 +20,16 @@ void LogRegistry::RegisterLogger(
       std::make_shared<Logger>(loggerName, outputFileName, enableDebugLogging);
 };
 
+void LogRegistry::RegisterLogger(
+    const std::string& loggerName, const std::string& outputFileName,
+    std::unique_ptr<Sinks::ISink> fileSink, bool enableDebugLogging
+)
+{
+  registeredLoggers[loggerName] = std::make_shared<Logger>(
+      loggerName, outputFileName, std::move(fileSink), enableDebugLogging
+  );
+};
+
 void LogRegistry::LoggerEnableDebug(const std::string& loggerName)
 {
   registeredLoggers[loggerName]->EnableDebugging();

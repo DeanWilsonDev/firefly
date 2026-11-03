@@ -14,6 +14,11 @@ class LogRegistry {
       bool enableDebugLogging = false
   );
 
+  FIREFLY_API static void RegisterLogger(
+      const std::string& loggerName, const std::string& outputFileName,
+      std::unique_ptr<Sinks::ISink> fileSink, bool enableDebugLogging = false
+  );
+
   FIREFLY_API static std::shared_ptr<Logger>& GetLogger(const std::string& loggerName);
 
   FIREFLY_API static void LoggerEnableDebug(const std::string& loggerName);
