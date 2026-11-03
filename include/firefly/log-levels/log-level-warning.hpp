@@ -11,7 +11,7 @@ class Warning : public ILogLevel {
  public:
   static constexpr std::string_view name{"WARNING"};
   static constexpr std::string_view color{LogColorYellow};
-  static constexpr int priority{2};
+  static constexpr int priority{3};
 
   Warning() = default;
   ~Warning() = default;

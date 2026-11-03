@@ -35,6 +35,19 @@ Logger::Logger(const std::string name, const std::string& fileName, bool debugEn
   this->CreateAndOpenLogFile();
 }
 
+Logger::Logger(
+    const std::string name, const std::string& fileName, std::unique_ptr<Sinks::ISink> fileSink,
+    bool debugEnabled
+)
+{
+  this->name = std::move(name);
+  this->debugEnabled = debugEnabled;
+  this->fileName = fileName;
+  this->chosenFileSink = std::move(fileSink);
+  this->InitializeSinks();
+  this->CreateAndOpenLogFile();
+}
+
 Logger::~Logger()
 {
   this->CloseLogFile();
@@ -174,6 +187,11 @@ void Logger::WriteToFile(const LogLevels::ILogLevel& level, std::string message)
 
 void Logger::WriteLineToFile(LogEntry entry)
 {
+  if (this->chosenFileSink) {
+    this->logFile << this->chosenFileSink->Format(entry);
+    return;
+  }
+
   std::filesystem::path path(this->fileName);
   std::string extension = path.extension().string();
 

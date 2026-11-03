@@ -181,6 +181,21 @@ file extension.
 [2025-09-27 14:32:01.043][WARNING]: Config file not found
 ```
 
+### Choosing the Sink Yourself
+
+To pick the format regardless of the file's extension, pass the sink when registering:
+
+```cpp
+#include <firefly/sinks.hpp>
+
+Firefly::LogRegistry::RegisterLogger(
+    "Game", "game.log", std::make_unique<Firefly::Sinks::NdjsonSink>()
+);
+```
+
+The sinks are `PlainTextSink`, `CsvSink`, `JsonSink` and `NdjsonSink`, or any class implementing
+`Firefly::Sinks::ISink`.
+
 Log files are written to a `log/` directory relative to the working directory.
 The directory is created automatically if it does not exist.
 
@@ -200,6 +215,14 @@ static void RegisterLogger(const std::string& loggerName, bool enableDebugLoggin
 static void RegisterLogger(
     const std::string& loggerName,
     const std::string& outputFileName,
+    bool enableDebugLogging = false
+);
+
+// Register a logger whose file is written by the given sink, whatever its extension
+static void RegisterLogger(
+    const std::string& loggerName,
+    const std::string& outputFileName,
+    std::unique_ptr<Sinks::ISink> fileSink,
     bool enableDebugLogging = false
 );
 

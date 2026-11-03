@@ -21,6 +21,10 @@ class Logger {
  public:
   Logger(const std::string name, bool debugEnabled = false);
   Logger(const std::string name, const std::string& fileName, bool debugEnabled = false);
+  Logger(
+      const std::string name, const std::string& fileName, std::unique_ptr<Sinks::ISink> fileSink,
+      bool debugEnabled = false
+  );
   ~Logger();
 
   Logger& operator=(const Logger& other)
@@ -88,6 +92,7 @@ class Logger {
   std::string fileName;
   std::unordered_map<std::string, LogEntry> logCache;
   std::unique_ptr<Sinks::ISink> defaultSink = std::make_unique<Sinks::PlainTextSink>();
+  std::unique_ptr<Sinks::ISink> chosenFileSink;
 
   [[nodiscard]] bool ShouldLogMessage(const LogLevels::ILogLevel& level) const;
   [[nodiscard]] bool GetDebugEnabled() const;

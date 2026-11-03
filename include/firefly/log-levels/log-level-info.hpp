@@ -11,7 +11,7 @@ class Info : public ILogLevel {
  public:
   static constexpr std::string_view name{"INFO"};
   static constexpr std::string_view color{LogColorCyan};
-  static constexpr int priority{3};
+  static constexpr int priority{2};
 
   Info() = default;
   ~Info() = default;
